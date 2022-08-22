@@ -39,3 +39,5 @@ search=*&$select=description, beds, baths&$filter=(beds gt 2 and baths gt 2)
 search=*&$select=price,mortgage&$filter=mortgage eq "Conforming"
 ?search=*&$filter=category eq 'Starter Home'
 ```
+
+# Filtering, faceting, and sorting from each dataset (as appropriate)
