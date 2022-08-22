@@ -1,12 +1,35 @@
 {
-    "name": "skillset-library",
-    "description": "Skillset created from the portal. skillsetName: skillset-library; contentField: merged_content; enrichmentGranularity: document; knowledgeStoreStorageAccount: ;",
+    "name": "library-skillset",
+    "description": "Skillset created from the portal. skillsetName: library-skillset; contentField: merged_content; enrichmentGranularity: pages; knowledgeStoreStorageAccount: ;",
     "skills": [
         {
-            "@odata.type": "#Microsoft.Skills.Text.V3.EntityRecognitionSkill",
+            "@odata.type": "#Microsoft.Skills.Text.SplitSkill",
             "name": "#1",
             "description": null,
             "context": "/document/merged_content",
+            "defaultLanguageCode": "en",
+            "textSplitMode": "pages",
+            "maximumPageLength": 5000,
+            "inputs": [
+                {
+                    "name": "text",
+                    "source": "/document/merged_content",
+                    "sourceContext": null,
+                    "inputs": []
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "textItems",
+                    "targetName": "pages"
+                }
+            ]
+        },
+        {
+            "@odata.type": "#Microsoft.Skills.Text.V3.EntityRecognitionSkill",
+            "name": "#2",
+            "description": null,
+            "context": "/document/merged_content/pages/*",
             "categories": [
                 "Product",
                 "PhoneNumber",
@@ -29,38 +52,38 @@
             "inputs": [
                 {
                     "name": "text",
-                    "source": "/document/merged_content",
+                    "source": "/document/merged_content/pages/*",
                     "sourceContext": null,
                     "inputs": []
                 }
             ],
             "outputs": [
                 {
-                    "name": "persons",
-                    "targetName": "people"
+                    "name": "locations",
+                    "targetName": "locations"
                 },
                 {
                     "name": "organizations",
                     "targetName": "organizations"
                 },
                 {
-                    "name": "locations",
-                    "targetName": "locations"
+                    "name": "persons",
+                    "targetName": "people"
                 }
             ]
         },
         {
             "@odata.type": "#Microsoft.Skills.Text.KeyPhraseExtractionSkill",
-            "name": "#2",
+            "name": "#3",
             "description": null,
-            "context": "/document/merged_content",
+            "context": "/document/merged_content/pages/*",
             "defaultLanguageCode": "en",
             "maxKeyPhraseCount": null,
             "modelVersion": null,
             "inputs": [
                 {
                     "name": "text",
-                    "source": "/document/merged_content",
+                    "source": "/document/merged_content/pages/*",
                     "sourceContext": null,
                     "inputs": []
                 }
@@ -74,7 +97,7 @@
         },
         {
             "@odata.type": "#Microsoft.Skills.Text.MergeSkill",
-            "name": "#3",
+            "name": "#4",
             "description": null,
             "context": "/document",
             "insertPreTag": " ",
@@ -108,7 +131,7 @@
         },
         {
             "@odata.type": "#Microsoft.Skills.Vision.OcrSkill",
-            "name": "#4",
+            "name": "#5",
             "description": null,
             "context": "/document/normalized_images/*",
             "textExtractionAlgorithm": null,

@@ -1,6 +1,6 @@
 {
-    "name": "skillset-courses",
-    "description": "Skillset created from the portal. skillsetName: skillset-courses; contentField: description; enrichmentGranularity: document; knowledgeStoreStorageAccount: ;",
+    "name": "courses-skillset",
+    "description": "Skillset created from the portal. skillsetName: courses-skillset; contentField: description; enrichmentGranularity: document; knowledgeStoreStorageAccount: ;",
     "skills": [
         {
             "@odata.type": "#Microsoft.Skills.Text.KeyPhraseExtractionSkill",

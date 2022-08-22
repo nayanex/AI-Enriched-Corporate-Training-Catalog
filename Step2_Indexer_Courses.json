@@ -1,9 +1,9 @@
 {
-    "name": "skillset-courses-indexer",
+    "name": "courses-indexer",
     "description": "",
-    "dataSourceName": "skillset-courses",
-    "skillsetName": "skillset-courses",
-    "targetIndexName": "skillset-courses-index",
+    "dataSourceName": "courses-data-source",
+    "skillsetName": "courses-skillset",
+    "targetIndexName": "courses-index",
     "disabled": null,
     "schedule": null,
     "parameters": {

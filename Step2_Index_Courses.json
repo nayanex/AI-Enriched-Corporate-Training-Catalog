@@ -1,5 +1,5 @@
 {
-    "name": "skillset-courses-index",
+    "name": "courses-index",
     "defaultScoringProfile": "",
     "fields": [
         {
@@ -67,7 +67,7 @@
             "type": "Edm.String",
             "searchable": false,
             "filterable": false,
-            "retrievable": false,
+            "retrievable": true,
             "sortable": false,
             "facetable": false,
             "key": false,
@@ -262,7 +262,7 @@
     "corsOptions": null,
     "suggesters": [
         {
-            "name": "skillset-courses-suggester",
+            "name": "courses-suggester",
             "searchMode": "analyzingInfixMatching",
             "sourceFields": [
                 "PartitionKey",

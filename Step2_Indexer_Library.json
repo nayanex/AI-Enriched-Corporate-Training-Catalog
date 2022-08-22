@@ -1,9 +1,9 @@
 {
-    "name": "skillset-library-indexer",
+    "name": "library-indexer",
     "description": "",
-    "dataSourceName": "skillset-library-data-source",
-    "skillsetName": "skillset-library",
-    "targetIndexName": "skillset-library-index",
+    "dataSourceName": "library-data-source",
+    "skillsetName": "library-skillset",
+    "targetIndexName": "library-index",
     "disabled": null,
     "schedule": null,
     "parameters": {
@@ -12,9 +12,9 @@
         "maxFailedItemsPerBatch": 0,
         "base64EncodeKeys": null,
         "configuration": {
-            "imageAction": "generateNormalizedImages",
             "dataToExtract": "contentAndMetadata",
-            "parsingMode": "default"
+            "parsingMode": "default",
+            "imageAction": "generateNormalizedImages"
         }
     },
     "fieldMappings": [
@@ -29,22 +29,22 @@
     ],
     "outputFieldMappings": [
         {
-            "sourceFieldName": "/document/merged_content/people",
-            "targetFieldName": "people",
-            "mappingFunction": null
-        },
-        {
-            "sourceFieldName": "/document/merged_content/organizations",
-            "targetFieldName": "organizations",
-            "mappingFunction": null
-        },
-        {
-            "sourceFieldName": "/document/merged_content/locations",
+            "sourceFieldName": "/document/merged_content/pages/*/locations/*",
             "targetFieldName": "locations",
             "mappingFunction": null
         },
         {
-            "sourceFieldName": "/document/merged_content/keyphrases",
+            "sourceFieldName": "/document/merged_content/pages/*/organizations/*",
+            "targetFieldName": "organizations",
+            "mappingFunction": null
+        },
+        {
+            "sourceFieldName": "/document/merged_content/pages/*/people/*",
+            "targetFieldName": "people",
+            "mappingFunction": null
+        },
+        {
+            "sourceFieldName": "/document/merged_content/pages/*/keyphrases/*",
             "targetFieldName": "keyphrases",
             "mappingFunction": null
         },
@@ -64,11 +64,6 @@
             "mappingFunction": null
         }
     ],
-    "cache": {
-        "id": "497524cb-704b-4d83-a4c8-ce7003739211",
-        "enableReprocessing": true,
-        "storageConnectionString": "DefaultEndpointsProtocol=https;AccountName=training6atalog5torage;AccountKey=NdtZp2sqF9J+y+KSMrnmpfhogaB5f5g3AB4baYfQJ3domo5VgBmR0vSNfbtGpKFFfOe1wH9E/5ts+AStsl+CiQ==;EndpointSuffix=core.windows.net",
-        "identity": null
-    },
+    "cache": null,
     "encryptionKey": null
 }

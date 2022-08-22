@@ -1,12 +1,12 @@
 {
-    "name": "skillset-library-index",
+    "name": "library-index",
     "defaultScoringProfile": "",
     "fields": [
         {
             "name": "content",
             "type": "Edm.String",
             "searchable": true,
-            "filterable": true,
+            "filterable": false,
             "retrievable": true,
             "sortable": false,
             "facetable": false,
@@ -198,10 +198,10 @@
             "synonymMaps": []
         },
         {
-            "name": "people",
+            "name": "locations",
             "type": "Collection(Edm.String)",
             "searchable": true,
-            "filterable": true,
+            "filterable": false,
             "retrievable": true,
             "sortable": false,
             "facetable": false,
@@ -216,7 +216,7 @@
             "name": "organizations",
             "type": "Collection(Edm.String)",
             "searchable": true,
-            "filterable": true,
+            "filterable": false,
             "retrievable": true,
             "sortable": false,
             "facetable": false,
@@ -228,10 +228,10 @@
             "synonymMaps": []
         },
         {
-            "name": "locations",
+            "name": "people",
             "type": "Collection(Edm.String)",
             "searchable": true,
-            "filterable": true,
+            "filterable": false,
             "retrievable": true,
             "sortable": false,
             "facetable": false,
@@ -246,7 +246,7 @@
             "name": "keyphrases",
             "type": "Collection(Edm.String)",
             "searchable": true,
-            "filterable": true,
+            "filterable": false,
             "retrievable": true,
             "sortable": false,
             "facetable": false,
@@ -276,7 +276,7 @@
             "name": "text",
             "type": "Collection(Edm.String)",
             "searchable": true,
-            "filterable": true,
+            "filterable": false,
             "retrievable": true,
             "sortable": false,
             "facetable": false,
