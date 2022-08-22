@@ -1,0 +1,36 @@
+{
+    "name": "skillset-courses",
+    "description": "Skillset created from the portal. skillsetName: skillset-courses; contentField: description; enrichmentGranularity: document; knowledgeStoreStorageAccount: ;",
+    "skills": [
+        {
+            "@odata.type": "#Microsoft.Skills.Text.KeyPhraseExtractionSkill",
+            "name": "#1",
+            "description": null,
+            "context": "/document/description",
+            "defaultLanguageCode": "en",
+            "maxKeyPhraseCount": null,
+            "modelVersion": null,
+            "inputs": [
+                {
+                    "name": "text",
+                    "source": "/document/description",
+                    "sourceContext": null,
+                    "inputs": []
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "keyPhrases",
+                    "targetName": "keyphrases"
+                }
+            ]
+        }
+    ],
+    "cognitiveServices": {
+        "@odata.type": "#Microsoft.Azure.Search.CognitiveServicesByKey",
+        "description": "/subscriptions/bb272072-9c6d-4e28-b814-947814c3e6ef/resourceGroups/ai-training-catalog/providers/Microsoft.CognitiveServices/accounts/ai-training-catalog-cognitive-services",
+        "key": "cd143df496e74e378f265adbe79d7c13"
+    },
+    "knowledgeStore": null,
+    "encryptionKey": null
+}

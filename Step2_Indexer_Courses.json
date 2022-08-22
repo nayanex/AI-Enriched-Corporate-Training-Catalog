@@ -1,0 +1,26 @@
+{
+    "name": "skillset-courses-indexer",
+    "description": "",
+    "dataSourceName": "skillset-courses",
+    "skillsetName": "skillset-courses",
+    "targetIndexName": "skillset-courses-index",
+    "disabled": null,
+    "schedule": null,
+    "parameters": {
+        "batchSize": null,
+        "maxFailedItems": 0,
+        "maxFailedItemsPerBatch": 0,
+        "base64EncodeKeys": false,
+        "configuration": {}
+    },
+    "fieldMappings": [],
+    "outputFieldMappings": [
+        {
+            "sourceFieldName": "/document/description/keyphrases",
+            "targetFieldName": "keyphrases",
+            "mappingFunction": null
+        }
+    ],
+    "cache": null,
+    "encryptionKey": null
+}

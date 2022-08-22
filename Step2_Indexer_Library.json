@@ -1,0 +1,74 @@
+{
+    "name": "skillset-library-indexer",
+    "description": "",
+    "dataSourceName": "skillset-library-data-source",
+    "skillsetName": "skillset-library",
+    "targetIndexName": "skillset-library-index",
+    "disabled": null,
+    "schedule": null,
+    "parameters": {
+        "batchSize": null,
+        "maxFailedItems": 0,
+        "maxFailedItemsPerBatch": 0,
+        "base64EncodeKeys": null,
+        "configuration": {
+            "imageAction": "generateNormalizedImages",
+            "dataToExtract": "contentAndMetadata",
+            "parsingMode": "default"
+        }
+    },
+    "fieldMappings": [
+        {
+            "sourceFieldName": "metadata_storage_path",
+            "targetFieldName": "metadata_storage_path",
+            "mappingFunction": {
+                "name": "base64Encode",
+                "parameters": null
+            }
+        }
+    ],
+    "outputFieldMappings": [
+        {
+            "sourceFieldName": "/document/merged_content/people",
+            "targetFieldName": "people",
+            "mappingFunction": null
+        },
+        {
+            "sourceFieldName": "/document/merged_content/organizations",
+            "targetFieldName": "organizations",
+            "mappingFunction": null
+        },
+        {
+            "sourceFieldName": "/document/merged_content/locations",
+            "targetFieldName": "locations",
+            "mappingFunction": null
+        },
+        {
+            "sourceFieldName": "/document/merged_content/keyphrases",
+            "targetFieldName": "keyphrases",
+            "mappingFunction": null
+        },
+        {
+            "sourceFieldName": "/document/merged_content",
+            "targetFieldName": "merged_content",
+            "mappingFunction": null
+        },
+        {
+            "sourceFieldName": "/document/normalized_images/*/text",
+            "targetFieldName": "text",
+            "mappingFunction": null
+        },
+        {
+            "sourceFieldName": "/document/normalized_images/*/layoutText",
+            "targetFieldName": "layoutText",
+            "mappingFunction": null
+        }
+    ],
+    "cache": {
+        "id": "497524cb-704b-4d83-a4c8-ce7003739211",
+        "enableReprocessing": true,
+        "storageConnectionString": "DefaultEndpointsProtocol=https;AccountName=training6atalog5torage;AccountKey=NdtZp2sqF9J+y+KSMrnmpfhogaB5f5g3AB4baYfQJ3domo5VgBmR0vSNfbtGpKFFfOe1wH9E/5ts+AStsl+CiQ==;EndpointSuffix=core.windows.net",
+        "identity": null
+    },
+    "encryptionKey": null
+}
