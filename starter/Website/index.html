@@ -1,6 +1,7 @@
 <!doctype html>
 
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
 
@@ -14,7 +15,7 @@
     <!--This demo is built using Vue.js and axios-->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    
+
     <!--This demo uses the Buefy framework for controls, layout, and styling-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@5.8.55/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
@@ -22,18 +23,19 @@
     <script src="https://unpkg.com/buefy/dist/buefy.min.js"></script>
 
 </head>
+
 <body>
     <div class="container">
         <section class="hero">
             <div class="hero-body">
-              <p class="title">
-                Corporate Training Catalog
-              </p>
-              <p class="subtitle">
-                Learn, build, and grow with our resources
-              </p>
+                <p class="title">
+                    Corporate Training Catalog
+                </p>
+                <p class="subtitle">
+                    Learn, build, and grow with our resources
+                </p>
             </div>
-          </section>
+        </section>
         <div id="search-app">
             <div class="columns">
                 <div class="column">
@@ -48,7 +50,7 @@
             </div>
             <div class="block">
                 <b-field label="Filter on rating">
-                    <b-slider :min="0" :max="1" step="0.1" v-model="rating_average" v-on:change="doSearch" >
+                    <b-slider :min="0" :max="1" step="0.1" v-model="rating_average" v-on:change="doSearch">
                         <template v-for="val in [0, 0.2, 0.4, 0.6, 0.8, 1]">
                             <b-slider-tick :value="val" :key="val">{{ val }}</b-slider-tick>
                         </template>
@@ -56,9 +58,7 @@
                 </b-field>
             </div>
             <div class="block">
-                <b-checkbox v-for="facet in availableFacets"
-                    v-bind:native-value="facet.value"
-                    v-model="myfacets"
+                <b-checkbox v-for="facet in availableFacets" v-bind:native-value="facet.value" v-model="myfacets"
                     @change.native="doRefresh($event)">
                     {{facet.value}} ({{facet.count}})
                 </b-checkbox>
@@ -73,21 +73,21 @@
                 </div>
                 <div class="columns">
                     <div class="column is-2">
-                        Product: {{course.product}}<br/>
-                        Level: {{course.level}}<br/>
+                        Product: {{course.product}}<br />
+                        Level: {{course.level}}<br />
                         Role: {{course.role}}
                     </div>
                     <div class="column is-2">
                         Duration: {{course.duration}}
                     </div>
                     <div class="column is-2">
-                        Rating: {{course.rating_average}}<br/>
+                        Rating: {{course.rating_average}}<br />
                         Rating Count: {{course.rating_count}}
                     </div>
-                </div>            
-                <hr/>
+                </div>
+                <hr />
             </div>
-    
+
         </div>
     </div>
 </body>
@@ -99,17 +99,17 @@
         serviceUrl is found in the Overview
     */
     const opts = {
-        headers: {'Content-Type': 'application/json', 'api-key':'<insert key here>'}
+        headers: { 'Content-Type': 'application/json', 'api-key': 'UL5EATDp77MYtyd99RhiJV4kXEPXW2izLYqfoGXmzPAzSeDrblXG' }
     }
-    const serviceUrl = 'https://<insert service name here>.search.windows.net'
-    
+    const serviceUrl = 'https://ai-enriched-training-catalog-search.search.windows.net'
+
     /* 
         This demo app uses Vue.js, a progressive framework for building user interfaces.  
         Full documentation can be found here: https://vuejs.org/v2/guide/index.html
     */
-    var searchApp =  new Vue({
+    var searchApp = new Vue({
         el: '#search-app',
-        data () {
+        data() {
             return {
                 results: null,
                 searchTerm: 'azure',
@@ -127,39 +127,40 @@
             doRefresh keeps facets from previous searches so users can select more than one
         */
         methods: {
-            doSearch: function(event){
+            doSearch: function (event) {
                 axios
                     .get(`${this.baseUrl}&search=${encodeURIComponent(this.searchTerm)}&${this.filter}&facet=level`, opts)
                     .then(response => {
-                        this.results = response.data.value; 
+                        this.results = response.data.value;
                         this.availableFacets = response.data['@search.facets'].level;
                     })
             },
-            doRefresh: function(event){
+            doRefresh: function (event) {
                 axios
                     .get(`${this.baseUrl}&search=${encodeURIComponent(this.searchTerm)}&${this.filter}`,
                         opts)
                     .then(response => {
-                        this.results = response.data.value; 
+                        this.results = response.data.value;
                     })
             }
         },
-        computed:{
+        computed: {
             /*
                 We build the filter dynamically here.  We first filter on rating 
                 and then, if facets have been selected by the users, add those as a pipe delimited string.
             */
-            filter: function(){
+            filter: function () {
                 f = `$filter=rating_average%20ge%20${this.rating_average}`;
-                if(this.myfacets && this.myfacets.length > 0){
+                if (this.myfacets && this.myfacets.length > 0) {
                     f += `and search.in(level, '${this.myfacets.join('|')}' ,'|')`;
                 }
                 return f;
             },
-            baseUrl: function(){
+            baseUrl: function () {
                 return `${serviceUrl}/indexes/azuretable-index/docs?api-version=2020-06-30`
             }
         }
     })
 </script>
+
 </html>
