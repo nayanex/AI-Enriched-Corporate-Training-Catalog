@@ -1,0 +1,206 @@
+{
+    "name": "library-skillset",
+    "description": "Skillset created from the portal. skillsetName: library-skillset; contentField: merged_content; enrichmentGranularity: pages; knowledgeStoreStorageAccount: ;",
+    "skills": [
+        {
+            "@odata.type": "#Microsoft.Skills.Text.SplitSkill",
+            "name": "#1",
+            "description": null,
+            "context": "/document/merged_content",
+            "defaultLanguageCode": "en",
+            "textSplitMode": "pages",
+            "maximumPageLength": 5000,
+            "inputs": [
+                {
+                    "name": "text",
+                    "source": "/document/merged_content",
+                    "sourceContext": null,
+                    "inputs": []
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "textItems",
+                    "targetName": "pages"
+                }
+            ]
+        },
+        {
+            "@odata.type": "#Microsoft.Skills.Text.V3.EntityRecognitionSkill",
+            "name": "#2",
+            "description": null,
+            "context": "/document/merged_content/pages/*",
+            "categories": [
+                "Product",
+                "PhoneNumber",
+                "Person",
+                "Quantity",
+                "Organization",
+                "IPAddress",
+                "URL",
+                "Email",
+                "Event",
+                "Skill",
+                "Location",
+                "PersonType",
+                "Address",
+                "DateTime"
+            ],
+            "defaultLanguageCode": "en",
+            "minimumPrecision": null,
+            "modelVersion": null,
+            "inputs": [
+                {
+                    "name": "text",
+                    "source": "/document/merged_content/pages/*",
+                    "sourceContext": null,
+                    "inputs": []
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "locations",
+                    "targetName": "locations"
+                },
+                {
+                    "name": "organizations",
+                    "targetName": "organizations"
+                },
+                {
+                    "name": "persons",
+                    "targetName": "people"
+                }
+            ]
+        },
+        {
+            "@odata.type": "#Microsoft.Skills.Text.KeyPhraseExtractionSkill",
+            "name": "#3",
+            "description": null,
+            "context": "/document/merged_content/pages/*",
+            "defaultLanguageCode": "en",
+            "maxKeyPhraseCount": null,
+            "modelVersion": null,
+            "inputs": [
+                {
+                    "name": "text",
+                    "source": "/document/merged_content/pages/*",
+                    "sourceContext": null,
+                    "inputs": []
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "keyPhrases",
+                    "targetName": "keyphrases"
+                }
+            ]
+        },
+        {
+            "@odata.type": "#Microsoft.Skills.Text.MergeSkill",
+            "name": "#4",
+            "description": null,
+            "context": "/document",
+            "insertPreTag": " ",
+            "insertPostTag": " ",
+            "inputs": [
+                {
+                    "name": "text",
+                    "source": "/document/content",
+                    "sourceContext": null,
+                    "inputs": []
+                },
+                {
+                    "name": "itemsToInsert",
+                    "source": "/document/normalized_images/*/text",
+                    "sourceContext": null,
+                    "inputs": []
+                },
+                {
+                    "name": "offsets",
+                    "source": "/document/normalized_images/*/contentOffset",
+                    "sourceContext": null,
+                    "inputs": []
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "mergedText",
+                    "targetName": "merged_content"
+                }
+            ]
+        },
+        {
+            "@odata.type": "#Microsoft.Skills.Vision.OcrSkill",
+            "name": "#5",
+            "description": null,
+            "context": "/document/normalized_images/*",
+            "textExtractionAlgorithm": null,
+            "lineEnding": "Space",
+            "defaultLanguageCode": "en",
+            "detectOrientation": true,
+            "inputs": [
+                {
+                    "name": "image",
+                    "source": "/document/normalized_images/*",
+                    "sourceContext": null,
+                    "inputs": []
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "text",
+                    "targetName": "text"
+                },
+                {
+                    "name": "layoutText",
+                    "targetName": "layoutText"
+                }
+            ]
+        },
+        {
+            "@odata.type": "#Microsoft.Skills.Custom.WebApiSkill",
+            "name": "PublishInformation",
+            "description": "Information about publication name, publisher, publication date and DOI for papers",
+            "context": "/document",
+            "uri": "https://springer-api-portal-func.azurewebsites.net/api/springerlookup?code=dxDfIK8xUV6xXWqZsgJ7J36kN_3GCdNJ1i3ey0KUJc4xAzFu388Hzw==",
+            "httpMethod": "POST",
+            "timeout": "PT30S",
+            "batchSize": 10,
+            "degreeOfParallelism": 1,
+            "inputs": [
+                {
+                    "name": "ArticleName",
+                    "source": "/document/metadata_title",
+                    "sourceContext": null,
+                    "inputs": []
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "publicationName",
+                    "targetName": "publicationName"
+                },
+                {
+                    "name": "publisher",
+                    "targetName": "publisher"
+                },
+                {
+                    "name": "doi",
+                    "targetName": "doi"
+                },
+                {
+                    "name": "publicationDate",
+                    "targetName": "publicationDate"
+                }
+            ],
+            "httpHeaders": {}
+        }
+    ],
+    "cognitiveServices": {
+        "@odata.type": "#Microsoft.Azure.Search.CognitiveServicesByKey",
+        "description": "/subscriptions/bb272072-9c6d-4e28-b814-947814c3e6ef/resourceGroups/ai-training-catalog/providers/Microsoft.CognitiveServices/accounts/ai-training-catalog-cognitive-services",
+        "key": "cd143df496e74e378f265adbe79d7c13"
+    },
+    "knowledgeStore": null,
+    "encryptionKey": null
+}
