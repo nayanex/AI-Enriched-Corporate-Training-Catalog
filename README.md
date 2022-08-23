@@ -41,3 +41,5 @@ search=*&$select=price,mortgage&$filter=mortgage eq "Conforming"
 ```
 
 # Filtering, faceting, and sorting from each dataset (as appropriate)
+
+#  use the built-in Custom Entity Lookup skill to enrich the dataset.
